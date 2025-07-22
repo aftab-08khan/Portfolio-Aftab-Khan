@@ -35,7 +35,7 @@ export default function Speaking() {
       title="Code-Driven Solutions for the Real World"
       intro="I specialize in building modern, responsive, and high-performance web and mobile applications using technologies like React.js, Next.js, Tailwind CSS, React Native, and Firebase. I enjoy solving real-world problems through clean UI design and seamless user experiences. Whether it’s developing a full-fledged School Management System or crafting a sleek portfolio, I’m passionate about using code to create impactful digital solutions."
     >
-      <div className="flex flex-wrap justify-center gap-12 space-y-20 px-8">
+      <div className="flex flex-wrap justify-center gap-12 space-y-20 p-0 md:px-8">
         <AnimatedTooltip items={skillsData}></AnimatedTooltip>
         {/* <SpeakingSection title="Conferences">
           <Appearance

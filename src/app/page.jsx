@@ -1,3 +1,4 @@
+'use client'
 import Image from 'next/image'
 import Link from 'next/link'
 import clsx from 'clsx'
@@ -20,6 +21,7 @@ import image2 from '@/images/photos/image-2.jpg'
 import image3 from '@/images/photos/image-3.jpg'
 import image4 from '@/images/photos/image-4.jpg'
 import image5 from '@/images/photos/image-5.jpg'
+import { useForm, ValidationError } from '@formspree/react'
 
 function MailIcon(props) {
   return (
@@ -89,8 +91,14 @@ function SocialLink({ icon: Icon, ...props }) {
 }
 
 function Newsletter() {
+  const [state, handleSubmit] = useForm('xyyrerzp')
+  if (state.succeeded) {
+    return alert('Email sent successfully!!!')
+  }
+
   return (
     <form
+      onSubmit={handleSubmit}
       action="/thank-you"
       className="w-full rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40"
     >
@@ -103,12 +111,14 @@ function Newsletter() {
       </p>
       <div className="mt-6 flex">
         <input
+          name="email"
           type="email"
           placeholder="Email address"
           aria-label="Email address"
           required
           className="min-w-0 flex-auto appearance-none rounded-md border border-zinc-900/10 bg-white px-3 py-[calc(--spacing(2)-1px)] shadow-md shadow-zinc-800/5 placeholder:text-zinc-400 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 focus:outline-hidden sm:text-sm dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500 dark:focus:border-teal-400 dark:focus:ring-teal-400/10"
         />
+        <ValidationError prefix="Email" field="email" errors={state.errors} />
         <Button type="submit" className="ml-4 flex-none">
           Join
         </Button>
@@ -179,10 +189,15 @@ function Resume() {
           <Role key={roleIndex} role={role} />
         ))}
       </ol>
-      <Button href="#" variant="secondary" className="group mt-6 w-full">
+      <a
+        href="/files/Aftab-Khan-Resume.pdf.zip"
+        variant="secondary"
+        className="group mt-6 inline-flex w-full items-center justify-center gap-2 rounded-md bg-zinc-800 px-3 py-2 text-sm font-semibold text-zinc-100 outline-offset-2 transition hover:bg-zinc-700 active:bg-zinc-800 active:text-zinc-100/70 active:transition-none dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:active:bg-zinc-700 dark:active:text-zinc-100/70"
+        download
+      >
         Download CV
         <ArrowDownIcon className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
-      </Button>
+      </a>
     </div>
   )
 }
@@ -203,7 +218,7 @@ function Photos() {
           >
             <Image
               src={image}
-              alt=""
+              alt={image.src}
               sizes="(min-width: 640px) 18rem, 11rem"
               className="absolute inset-0 h-full w-full object-cover"
             />
@@ -229,7 +244,7 @@ export default async function Home() {
             in mind.
           </p>
           <div className="mt-6 flex gap-6">
-            <SocialLink href="#" aria-label="Follow on X" icon={XIcon} />
+            {/* <SocialLink href="#" aria-label="Follow on X" icon={XIcon} /> */}
             {/* <SocialLink
               href="#"
               aria-label="Follow on Instagram"
