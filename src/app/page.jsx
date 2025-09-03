@@ -19,9 +19,10 @@ import logoStarbucks from '@/images/logos/starbucks.svg'
 import image1 from '@/images/photos/image-1.jpg'
 import image2 from '@/images/photos/image-2.jpg'
 import image3 from '@/images/photos/image-3.jpg'
-import image4 from '@/images/photos/image-4.jpg'
+import image4 from '@/images/photos/image-4.png'
 import image5 from '@/images/photos/image-5.jpg'
 import { useForm, ValidationError } from '@formspree/react'
+import { useRef, useState } from 'react'
 
 function MailIcon(props) {
   return (
@@ -92,38 +93,56 @@ function SocialLink({ icon: Icon, ...props }) {
 
 function Newsletter() {
   const [state, handleSubmit] = useForm('xyyrerzp')
-  if (state.succeeded) {
-    return alert('Email sent successfully!!!')
-  }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      action="/thank-you"
-      className="w-full rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40"
-    >
-      <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-        <MailIcon className="h-6 w-6 flex-none" />
-        <span className="ml-3">Stay up to date</span>
-      </h2>
-      <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Get notified when I publish something new, and unsubscribe at any time.
-      </p>
-      <div className="mt-6 flex">
-        <input
-          name="email"
-          type="email"
-          placeholder="Email address"
-          aria-label="Email address"
-          required
-          className="min-w-0 flex-auto appearance-none rounded-md border border-zinc-900/10 bg-white px-3 py-[calc(--spacing(2)-1px)] shadow-md shadow-zinc-800/5 placeholder:text-zinc-400 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 focus:outline-hidden sm:text-sm dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500 dark:focus:border-teal-400 dark:focus:ring-teal-400/10"
-        />
-        <ValidationError prefix="Email" field="email" errors={state.errors} />
-        <Button type="submit" className="ml-4 flex-none">
-          Join
-        </Button>
-      </div>
-    </form>
+    <div className="w-full rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
+      {state.succeeded ? (
+        <div className="text-center">
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">
+            Thank you for subscribing! You'll receive updates soon.
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            className="mt-4 rounded-md bg-teal-500 px-4 py-2 text-white hover:bg-teal-600 focus:ring-4 focus:ring-teal-500/50 focus:outline-none"
+          >
+            Subscribe Again
+          </button>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="w-full">
+          <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+            <MailIcon className="h-6 w-6 flex-none" />
+            <span className="ml-3">Stay up to date</span>
+          </h2>
+          <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+            Get notified when I publish something new, and unsubscribe at any
+            time.
+          </p>
+          <div className="mt-6 flex">
+            <input
+              name="email"
+              type="email"
+              placeholder="Email address"
+              aria-label="Email address"
+              required
+              className="min-w-0 flex-auto appearance-none rounded-md border border-zinc-900/10 bg-white px-3 py-[calc(theme(spacing.2)-1px)] shadow-md shadow-zinc-800/5 placeholder:text-zinc-400 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 sm:text-sm dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500 dark:focus:border-teal-400 dark:focus:ring-teal-400/10"
+            />
+            <ValidationError
+              prefix="Email"
+              field="email"
+              errors={state.errors}
+            />
+            <Button
+              type="submit"
+              className="ml-4 flex-none"
+              disabled={state.submitting}
+            >
+              Join
+            </Button>
+          </div>
+        </form>
+      )}
+    </div>
   )
 }
 
@@ -202,27 +221,63 @@ function Resume() {
   )
 }
 
+function HoverImage({ image, rotation }) {
+  const [transform, setTransform] = useState('')
+
+  const handleMouseMove = (e) => {
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect()
+    const x = (e.clientX - left) / width - 0.5
+    const y = (e.clientY - top) / height - 0.5
+
+    const tiltX = (y * 15).toFixed(2)
+    const tiltY = (x * -15).toFixed(2)
+    const hoverHeight = 5
+
+    setTransform(
+      `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(${hoverHeight}px)`,
+    )
+  }
+
+  const handleMouseLeave = () => {
+    setTransform(
+      'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)',
+    )
+  }
+
+  return (
+    <div
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ perspective: '1000px', transform }}
+      className={clsx(
+        'relative aspect-9/10 w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 sm:w-72 sm:rounded-2xl dark:bg-zinc-800',
+        rotation,
+      )}
+    >
+      <div className="h-full w-full overflow-hidden rounded-xl transition-transform duration-500 ease-out">
+        <Image
+          src={image}
+          alt={image.src}
+          sizes="(min-width: 640px) 18rem, 11rem"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      </div>
+    </div>
+  )
+}
+
 function Photos() {
   let rotations = ['rotate-2', '-rotate-2', 'rotate-2', 'rotate-2', '-rotate-2']
 
   return (
     <div className="mt-16 sm:mt-20">
       <div className="-my-4 flex justify-center gap-5 overflow-hidden py-4 sm:gap-8">
-        {[image1, image2, image3, image4, image5].map((image, imageIndex) => (
-          <div
+        {[image1, image2, image3, image4, image5].map((image, i) => (
+          <HoverImage
             key={image.src}
-            className={clsx(
-              'relative aspect-9/10 w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 sm:w-72 sm:rounded-2xl dark:bg-zinc-800',
-              rotations[imageIndex % rotations.length],
-            )}
-          >
-            <Image
-              src={image}
-              alt={image.src}
-              sizes="(min-width: 640px) 18rem, 11rem"
-              className="absolute inset-0 h-full w-full object-cover"
-            />
-          </div>
+            image={image}
+            rotation={rotations[i % rotations.length]}
+          />
         ))}
       </div>
     </div>

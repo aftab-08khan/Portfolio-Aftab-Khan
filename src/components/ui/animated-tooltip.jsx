@@ -31,7 +31,7 @@ export const AnimatedTooltip = ({ items }) => {
     <>
       {items.map((item, idx) => (
         <div
-          className="group relative -mr-4"
+          className="group relative -mr-4 flex h-24 w-24 items-center justify-center rounded-full bg-gray-300 p-4 dark:bg-black"
           key={item.name}
           onMouseEnter={() => setHoveredIndex(item.id)}
           onMouseLeave={() => setHoveredIndex(null)}
@@ -56,7 +56,7 @@ export const AnimatedTooltip = ({ items }) => {
                   rotate: rotate,
                   whiteSpace: 'nowrap',
                 }}
-                className="absolute -top-16 left-1/2 z-50 flex -translate-x-1/2 flex-col items-center justify-center rounded-md bg-black px-4 py-2 text-xs shadow-xl"
+                className="absolute -top-16 left-1/2 z-50 flex -translate-x-1/2 flex-col items-center justify-center bg-black px-4 py-2 text-xs shadow-xl"
               >
                 <div className="absolute inset-x-10 -bottom-px z-30 h-px w-[40%] bg-gradient-to-r from-transparent via-emerald-500 to-transparent" />
                 <div className="absolute -bottom-px left-10 z-30 h-px w-[60%] bg-gradient-to-r from-transparent via-sky-500 to-transparent" />
@@ -73,7 +73,7 @@ export const AnimatedTooltip = ({ items }) => {
             width={100}
             src={item.image}
             alt={item.name}
-            className="relative !m-0 h-24 w-24 rounded-full border-2 border-white bg-transparent object-cover p-0 transition duration-500 group-hover:z-30 group-hover:scale-105"
+            className="relative !m-0 h-full w-full border-2 bg-transparent object-contain p-0 backdrop-blur-3xl transition duration-500 group-hover:z-30 group-hover:scale-105"
           />
         </div>
       ))}
