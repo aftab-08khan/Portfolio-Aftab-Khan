@@ -99,7 +99,7 @@ function Newsletter() {
       {state.succeeded ? (
         <div className="text-center">
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
-            Thank you for subscribing! You'll receive updates soon.
+            Thank you for subscribing! You&apos;ll receive updates soon.
           </p>
           <button
             onClick={() => window.location.reload()}
