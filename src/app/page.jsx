@@ -189,7 +189,7 @@ function Resume() {
       company: 'MAK Byte',
       title: 'Fronted Enginner',
       logo: logoPlanetaria,
-      start: '2024',
+      start: '2023',
       end: {
         label: 'Present',
         dateTime: new Date().getFullYear().toString(),
