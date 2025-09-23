@@ -321,7 +321,7 @@ export default async function Home() {
       <Photos />
       <Container className="mt-24 md:mt-28">
         <div className="mx-auto">
-          <div className="grid grid-cols-1 grid-rows-2 gap-y-6 md:grid-cols-2 md:gap-x-6">
+          <div className="grid grid-cols-1 gap-y-6 md:grid-cols-2 md:gap-x-6">
             <Newsletter />
             <Resume />
           </div>
