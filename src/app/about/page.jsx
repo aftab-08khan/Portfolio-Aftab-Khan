@@ -58,29 +58,37 @@ export default function About() {
         </div>
         <div className="lg:order-first lg:row-span-2">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-            I’m Aftab Khan. I live in Mumbai, where I build thoughtful and
-            modern web experiences.
+            I’m Aftab Khan — a frontend engineer building modern, scalable web
+            experiences.
           </h1>
+
           <div className="mt-6 space-y-7 text-base text-zinc-600 dark:text-zinc-400">
             <p>
-              I’ve always been curious about how things work — especially on the
-              web. That curiosity turned into passion, and over the years, I’ve
-              grown into a frontend developer who enjoys turning ideas into
-              fast, responsive, and user-friendly applications.
+              I’m a frontend developer specializing in creating
+              high-performance, responsive, and user-focused web applications.
+              What began as curiosity about how the web works has evolved into a
+              strong passion for crafting clean interfaces and intuitive digital
+              experiences.
             </p>
+
             <p>
-              From recipe finders and movie dashboards to job automation bots
-              and fitness tracking apps, my projects reflect my hands-on
-              experience with tools like React, Next.js, Tailwind CSS, Firebase,
-              and various public APIs. I love building clean interfaces, solving
-              real problems, and constantly learning new technologies.
+              I have hands-on experience building real-world applications such
+              as real-estate dashboards, job automation tools, weather
+              platforms, and management systems. My work primarily involves
+              React, Next.js, Tailwind CSS, Firebase, and REST APIs, with a
+              strong focus on clean architecture, performance optimization, and
+              maintainable code.
             </p>
+
             <p>
-              Today, I focus on building practical, accessible, and beautifully
-              crafted digital products — one project at a time.
+              Currently based in the UAE and open to opportunities across Abu
+              Dhabi, Dubai, and remote roles, I’m focused on building practical,
+              accessible, and thoughtfully designed products that solve real
+              business problems and deliver measurable value.
             </p>
           </div>
         </div>
+
         <div className="lg:pl-20">
           <ul role="list">
             {/* <SocialLink href="#" icon={XIcon}>
