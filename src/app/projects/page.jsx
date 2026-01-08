@@ -18,7 +18,6 @@ function LinkIcon(props) {
   )
 }
 
-/* 🔹 Skeleton Card */
 function ProjectSkeleton() {
   return (
     <li className="animate-pulse">
