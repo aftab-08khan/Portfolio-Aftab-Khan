@@ -1,5 +1,6 @@
 import { Providers } from '@/app/providers'
 import { Layout } from '@/components/Layout'
+import SpaceBackground  from '@/components/SpacebackgroundLayout'
 
 import '@/styles/tailwind.css'
 
@@ -23,7 +24,11 @@ export default function RootLayout({ children }) {
       <body className="flex h-full bg-zinc-50 dark:bg-black">
         <Providers>
           <div className="flex w-full">
-            <Layout>{children}</Layout>
+          <SpaceBackground/>
+            <Layout>
+
+              {children}
+              </Layout>
           </div>
         </Providers>
       </body>

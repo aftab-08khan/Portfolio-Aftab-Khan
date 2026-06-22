@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import clsx from 'clsx'
@@ -5,9 +7,7 @@ import clsx from 'clsx'
 import { Container } from '@/components/Container'
 import {
   GitHubIcon,
-  InstagramIcon,
   LinkedInIcon,
-  XIcon,
 } from '@/components/SocialIcons'
 import portraitImage from '@/images/portrait.jpg'
 
@@ -36,91 +36,76 @@ function MailIcon(props) {
   )
 }
 
-export const metadata = {
-  title: 'About',
-  description:
-    'I’m Aftab Khan. I live in New York City, where I design the future.',
-}
-
 export default function About() {
   return (
-    <Container className="mt-16 sm:mt-32">
-      <div className="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
-        <div className="lg:pl-20">
-          <div className="max-w-xs px-2.5 lg:max-w-none">
-            <Image
-              src={portraitImage}
-              alt=""
-              sizes="(min-width: 1024px) 32rem, 20rem"
-              className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover dark:bg-zinc-800"
-            />
+    <>
+      <Container className="mt-16 sm:mt-32 relative z-10">
+        <div className="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
+          
+          {/* Portrait Image Column */}
+          <div className="lg:pl-20">
+            {/* Automatic smooth floating bounce effect using arbitrary custom Tailwind classes */}
+            <div className="max-w-xs px-2.5 lg:max-w-none [animation:float_5s_ease-in-out_infinite] @keyframes_float_{0%,100%{transform:translateY(0px)}_50%{transform:translateY(-10px)}}">
+              <Image
+                src={portraitImage}
+                alt="Aftab Khan"
+                sizes="(min-width: 1024px) 32rem, 20rem"
+                className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover dark:bg-zinc-800 shadow-xl border border-slate-700/30 transition-transform duration-500 hover:rotate-0 hover:scale-[1.02]"
+              />
+            </div>
           </div>
-        </div>
-        <div className="lg:order-first lg:row-span-2">
-          <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-            I’m Aftab Khan — a frontend engineer building modern, scalable web
-            experiences.
-          </h1>
 
-          <div className="mt-6 space-y-7 text-base text-zinc-600 dark:text-zinc-400">
-            <p>
-              I’m a frontend developer specializing in creating
-              high-performance, responsive, and user-focused web applications.
-              What began as curiosity about how the web works has evolved into a
-              strong passion for crafting clean interfaces and intuitive digital
-              experiences.
-            </p>
+          {/* Biography Content Column */}
+          <div className="lg:order-first lg:row-span-2">
+            {/* Sleek multi-stop color gradient text that smoothly transitions automatically. 
+              In dark mode, it gracefully cycles highlighting nuances through white, emerald/teal tones, and sleek silver.
+            */}
+            <h1 className="text-3xl font-extrabold tracking-tight sm:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-zinc-800 via-zinc-600 to-zinc-900 dark:from-white dark:via-teal-200 dark:to-slate-400 bg-[size:200%_auto] animate-[pulse_6s_linear_infinite] hover:animate-[shine_2s_linear_infinite] @keyframes_shine_{to{background-position:200%_center}}">
+              I’m Aftab Khan — a frontend engineer building modern, scalable web experiences.
+            </h1>
 
-            <p>
-              I have hands-on experience building real-world applications such
-              as real-estate dashboards, job automation tools, weather
-              platforms, and management systems. My work primarily involves
-              React, Next.js, Tailwind CSS, Firebase, and REST APIs, with a
-              strong focus on clean architecture, performance optimization, and
-              maintainable code.
-            </p>
+            <div className="mt-6 space-y-7 text-base text-zinc-600 dark:text-zinc-400/90 leading-relaxed">
+              <p>
+                I’m a frontend developer specializing in creating high-performance, responsive, and user-focused web applications. What began as curiosity about how the web works has evolved into a strong passion for crafting clean interfaces and intuitive digital experiences.
+              </p>
 
-            <p>
-              Currently based in the UAE and open to opportunities across Abu
-              Dhabi, Dubai, and remote roles, I’m focused on building practical,
-              accessible, and thoughtfully designed products that solve real
-              business problems and deliver measurable value.
-            </p>
+              <p>
+                I have hands-on experience building real-world applications such as real-estate dashboards, job automation tools, weather platforms, and management systems. My work primarily involves React, Next.js, Tailwind CSS, Firebase, and REST APIs, with a strong focus on clean architecture, performance optimization, and maintainable code.
+              </p>
+
+              <p>
+                Currently based in the UAE and open to opportunities across Abu Dhabi, Dubai, and remote roles, I’m focused on building practical, accessible, and thoughtfully designed products that solve real business problems and deliver measurable value.
+              </p>
+            </div>
           </div>
-        </div>
 
-        <div className="lg:pl-20">
-          <ul role="list">
-            {/* <SocialLink href="#" icon={XIcon}>
-              Follow on X
-            </SocialLink> */}
-            {/* <SocialLink href="#" icon={InstagramIcon} className="mt-4">
-              Follow on Instagram
-            </SocialLink> */}
-            <SocialLink
-              href="https://github.com/aftab-08khan"
-              icon={GitHubIcon}
-              className="mt-4"
-            >
-              Follow on GitHub
-            </SocialLink>
-            <SocialLink
-              href="https://www.linkedin.com/in/aftab-khan-806617289/"
-              icon={LinkedInIcon}
-              className="mt-4"
-            >
-              Follow on LinkedIn
-            </SocialLink>
-            <SocialLink
-              href="mailto:akkhanaftab08@gmial.com"
-              icon={MailIcon}
-              className="mt-8 border-t border-zinc-100 pt-8 dark:border-zinc-700/40"
-            >
-              akkhanaftab08@gmial.com
-            </SocialLink>
-          </ul>
+          {/* Social Connections Link List */}
+          <div className="lg:pl-20">
+            <ul role="list" className="space-y-4">
+              <SocialLink
+                href="https://github.com/aftab-08khan"
+                icon={GitHubIcon}
+              >
+                Follow on GitHub
+              </SocialLink>
+              <SocialLink
+                href="https://www.linkedin.com/in/aftab-khan-806617289/"
+                icon={LinkedInIcon}
+              >
+                Follow on LinkedIn
+              </SocialLink>
+              <SocialLink
+                href="mailto:akkhanaftab08@gmial.com"
+                icon={MailIcon}
+                className="pt-8 border-t border-zinc-100 dark:border-zinc-700/40"
+              >
+                akkhanaftab08@gmial.com
+              </SocialLink>
+            </ul>
+          </div>
+
         </div>
-      </div>
-    </Container>
+      </Container>
+    </>
   )
 }
