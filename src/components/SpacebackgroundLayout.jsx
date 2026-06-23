@@ -198,13 +198,12 @@ export default function SpaceBackground() {
         style={{ backgroundColor: 'transparent' }}
       />
 
-      {/* 🌍 Interactive 3D Globe Wrapper Layer */}
       {isDark && (
-        <div className="fixed -right-64 -bottom-64 md:-right-32 md:-bottom-32 w-[600px] h-[600px] lg:w-[800px] lg:h-[800px] pointer-events-auto -z-10 opacity-75 select-none animate-fade-in duration-1000">
+        <div className="fixed cursor-grab -right-64 -bottom-64 md:-right-32 md:-bottom-36 w-[600px] h-[600px] lg:w-[800px] lg:h-[800px] pointer-events-auto z-1 opacity-75 select-none animate-fade-in duration-1000">
           <Globe3D
             markers={sampleMarkers}
             config={{
-              atmosphereColor: "#ededed", // Teal matches your starfield accent hues perfectly!
+              atmosphereColor: "#ededed", 
               atmosphereIntensity: 12,
               bumpScale: 3,
               autoRotateSpeed: 1.25,

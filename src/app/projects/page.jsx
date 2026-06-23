@@ -62,7 +62,7 @@ export default function Projects() {
     >
       <ul
         role="list"
-        className={`grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-1000 ease-in-out ${
+        className={`grid grid-cols-1 gap-6 relative z-20 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-1000 ease-in-out ${
           loading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
         }`}
       >
@@ -79,7 +79,7 @@ export default function Projects() {
               className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-zinc-100 bg-white p-6 shadow-sm transition-all duration-300 dark:border-zinc-800/60 dark:bg-zinc-900/40 backdrop-blur-sm hover:border-zinc-300 dark:hover:border-zinc-700/80 hover:shadow-md dark:hover:bg-zinc-900/60"
             >
               {/* Top ambient radial glow inside card on hover */}
-              <div className="absolute top-0 right-0 -z-10 h-24 w-24 rounded-full bg-teal-500/0 blur-2xl transition-all duration-500 group-hover:bg-teal-500/10 dark:group-hover:bg-teal-400/5" />
+              <div className="absolute top-0 right-0 h-24 w-24 rounded-full bg-teal-500/0 blur-2xl transition-all duration-500 group-hover:bg-teal-500/10 dark:group-hover:bg-teal-400/5" />
 
               <div>
                 {/* Modern Squared-Circle Icon Wrapper */}
