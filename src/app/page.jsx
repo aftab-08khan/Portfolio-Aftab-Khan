@@ -23,6 +23,7 @@ import image4 from '@/images/photos/image-4.png'
 import image5 from '@/images/photos/image-5.jpg'
 import { useForm, ValidationError } from '@formspree/react'
 import { useRef, useState } from 'react'
+import Heading from '@/components/Heading'
 
 function MailIcon(props) {
   return (
@@ -289,9 +290,9 @@ export default async function Home() {
     <>
       <Container className="mt-9">
         <div className="max-w-2xl">
-          <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
+          <Heading>
             Front-End Engineer building Data-Driven Dashboards & Web Applications
-          </h1>
+          </Heading>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
             Specialized in React, Next.js, and modern UI with strong experience in data visualization using Power BI, SQL, and Excel
 
@@ -316,7 +317,7 @@ export default async function Home() {
           </div>
         </div>
       </Container>
-      <Photos />
+      {/* <Photos /> */}
       <Container className="mt-24 md:mt-28">
         <div className="mx-auto">
           <div className="grid grid-cols-1 gap-y-6 md:grid-cols-2 md:gap-x-6">

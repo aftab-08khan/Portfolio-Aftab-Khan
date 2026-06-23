@@ -1,9 +1,26 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { Globe3D } from "@/components/ui/3d-globe"
+
+const sampleMarkers = [
+  {
+    lat: 25.2048,
+    lng: 55.2708,
+    src: "https://res.cloudinary.com/dj95cxdqo/image/upload/v1782211542/1771874162127_meffyz.jpg",
+    label: "Dubai, UAE",
+  },
+  {
+    lat: 19.0760,
+    lng: 72.8777,
+    src: "https://res.cloudinary.com/dj95cxdqo/image/upload/v1782211542/1771874162127_meffyz.jpg",
+    label: "Mumbai, India",
+  },
+];
 
 export default function SpaceBackground() {
   const canvasRef = useRef(null)
+  const [isDark, setIsDark] = useState(true)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -13,23 +30,21 @@ export default function SpaceBackground() {
 
     let animationFrameId
     let stars = []
+    let cosmicParticles = []
     let shootingStars = []
-    let isDark = true
+    let currentDarkStatus = true
 
-    // 1. Core theme monitor rule
     const checkTheme = () => {
       const darkActive = document.documentElement.classList.contains('dark')
+      setIsDark(darkActive)
       
-      // If theme context changes, handle loop state cleanly
-      if (darkActive !== isDark) {
-        isDark = darkActive
-        if (isDark) {
-          initStars()
-          // Resume animation frame loop when changing back to dark mode
+      if (darkActive !== currentDarkStatus) {
+        currentDarkStatus = darkActive
+        if (currentDarkStatus) {
+          initSpaceObjects()
           cancelAnimationFrame(animationFrameId)
           render()
         } else {
-          // Hard wipe canvas and stop rendering entirely to save CPU/Battery in light mode
           ctx.clearRect(0, 0, canvas.width, canvas.height)
           cancelAnimationFrame(animationFrameId)
         }
@@ -45,15 +60,15 @@ export default function SpaceBackground() {
     const resizeCanvas = () => {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
-      isDark = document.documentElement.classList.contains('dark')
-      if (isDark) {
-        initStars()
+      currentDarkStatus = document.documentElement.classList.contains('dark')
+      if (currentDarkStatus) {
+        initSpaceObjects()
       } else {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
       }
     }
 
-    const initStars = () => {
+    const initSpaceObjects = () => {
       stars = []
       const starCount = Math.floor((canvas.width * canvas.height) / 4000)
       for (let i = 0; i < starCount; i++) {
@@ -62,42 +77,66 @@ export default function SpaceBackground() {
           y: Math.random() * canvas.height,
           radius: Math.random() * 1.2,
           alpha: Math.random(),
-          speed: 0.01 + Math.random() * 0.02,
+          speed: 0.005 + Math.random() * 0.015,
+        })
+      }
+
+      cosmicParticles = []
+      const particleCount = Math.floor(canvas.width / 40)
+      for (let i = 0; i < particleCount; i++) {
+        cosmicParticles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: 0.5 + Math.random() * 1.5,
+          alpha: 0.1 + Math.random() * 0.4,
+          speedY: -(0.05 + Math.random() * 0.12),
+          speedX: (Math.random() - 0.5) * 0.05,
         })
       }
     }
 
     const createShootingStar = () => {
       shootingStars.push({
-        x: Math.random() * canvas.width * 0.8,
-        y: Math.random() * canvas.height * 0.4,
-        length: 80 + Math.random() * 100,
-        speed: 4 + Math.random() * 6,
-        angle: (Math.PI / 4) + (Math.random() * 0.1 - 0.05),
+        x: Math.random() * canvas.width * 0.9,
+        y: Math.random() * canvas.height * 0.3,
+        length: 120 + Math.random() * 120,
+        speed: 6 + Math.random() * 8,
+        angle: (Math.PI / 4) + (Math.random() * 0.08 - 0.04),
         opacity: 1,
-        fadeSpeed: 0.015 + Math.random() * 0.02,
+        fadeSpeed: 0.01 + Math.random() * 0.015,
+        colorVariant: Math.random() > 0.4 ? '#2dd4bf' : '#38bdf8'
       })
     }
 
-    // 2. Render loop runs ONLY if dark mode is active
     const render = () => {
-      if (!isDark) return // Safety exit bridge
+      if (!currentDarkStatus) return
 
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      // Ambient Background Space Stars
+      // Stars
       stars.forEach((star) => {
         star.alpha += star.speed
-        if (star.alpha > 1 || star.alpha < 0) {
-          star.speed = -star.speed
-        }
+        if (star.alpha > 1 || star.alpha < 0) star.speed = -star.speed
         ctx.beginPath()
         ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0.2, star.alpha)})`
+        ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0.15, star.alpha)})`
         ctx.fill()
       })
 
-      // Cosmic Shooting Star Streaks
+      // Cosmic Dust Embers
+      cosmicParticles.forEach((p) => {
+        p.y += p.speedY
+        p.x += p.speedX
+        if (p.y < -10) p.y = canvas.height + 10
+        if (p.x < -10 || p.x > canvas.width + 10) p.x = Math.random() * canvas.width
+
+        ctx.beginPath()
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(45, 212, 191, ${p.alpha})`
+        ctx.fill()
+      })
+
+      // Shooting Star Streaks
       for (let i = shootingStars.length - 1; i >= 0; i--) {
         const ss = shootingStars[i]
         const cosAngle = Math.cos(ss.angle)
@@ -106,13 +145,14 @@ export default function SpaceBackground() {
         const endY = ss.y - ss.length * sinAngle
 
         const gradient = ctx.createLinearGradient(ss.x, ss.y, endX, endY)
-        gradient.addColorStop(0, `rgba(45, 212, 191, ${ss.opacity})`) // Teal matching accent color
-        gradient.addColorStop(0.2, `rgba(147, 51, 234, ${ss.opacity * 0.6})`) // Purple aura
+        gradient.addColorStop(0, `rgba(255, 255, 255, ${ss.opacity})`)
+        gradient.addColorStop(0.1, `${ss.colorVariant}${Math.floor(ss.opacity * 255).toString(16).padStart(2, '0')}`)
+        gradient.addColorStop(0.4, `rgba(147, 51, 234, ${ss.opacity * 0.3})`)
         gradient.addColorStop(1, 'rgba(0, 0, 0, 0)')
 
         ctx.beginPath()
         ctx.strokeStyle = gradient
-        ctx.lineWidth = 2
+        ctx.lineWidth = 2.5
         ctx.moveTo(ss.x, ss.y)
         ctx.lineTo(endX, endY)
         ctx.stroke()
@@ -126,7 +166,7 @@ export default function SpaceBackground() {
         }
       }
 
-      if (Math.random() < 0.008 && shootingStars.length < 3) {
+      if (Math.random() < 0.025 && shootingStars.length < 5) {
         createShootingStar()
       }
 
@@ -135,10 +175,11 @@ export default function SpaceBackground() {
 
     window.addEventListener('resize', resizeCanvas)
     
-    // Initial evaluation trigger
-    isDark = document.documentElement.classList.contains('dark')
+    const darkActive = document.documentElement.classList.contains('dark')
+    setIsDark(darkActive)
+    currentDarkStatus = darkActive
     resizeCanvas()
-    if (isDark) {
+    if (currentDarkStatus) {
       render()
     }
 
@@ -150,10 +191,29 @@ export default function SpaceBackground() {
   }, [])
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="hidden dark:block fixed inset-0 w-full h-full pointer-events-none -z-10 bg-gradient-to-b from-[#000000] via-[#04070f] to-[#05070c]"
-      style={{ backgroundColor: 'transparent' }}
-    />
+    <>
+      <canvas
+        ref={canvasRef}
+        className="hidden dark:block fixed inset-0 w-full h-full pointer-events-none -z-10 bg-gradient-to-b from-[#000000] via-[#03060d] to-[#04060a]"
+        style={{ backgroundColor: 'transparent' }}
+      />
+
+      {/* 🌍 Interactive 3D Globe Wrapper Layer */}
+      {isDark && (
+        <div className="fixed -right-64 -bottom-64 md:-right-32 md:-bottom-32 w-[600px] h-[600px] lg:w-[800px] lg:h-[800px] pointer-events-auto -z-10 opacity-75 select-none animate-fade-in duration-1000">
+          <Globe3D
+            markers={sampleMarkers}
+            config={{
+              atmosphereColor: "#ededed", // Teal matches your starfield accent hues perfectly!
+              atmosphereIntensity: 12,
+              bumpScale: 3,
+              autoRotateSpeed: 1.25,
+            }}
+            onMarkerClick={(marker) => console.log("Clicked marker:", marker.label)}
+            onMarkerHover={(marker) => marker && console.log("Hovering:", marker.label)}
+          />
+        </div>
+      )}
+    </>
   )
 }

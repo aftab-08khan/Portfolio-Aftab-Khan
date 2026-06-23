@@ -1,12 +1,14 @@
 import { Container } from '@/components/Container'
+import Heading from './Heading'
 
 export function SimpleLayout({ title, intro, children }) {
   return (
     <Container className="mt-16 sm:mt-32">
       <header className="max-w-2xl">
-        <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
+ <Heading>
+
           {title}
-        </h1>
+  </Heading>
         <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
           {intro}
         </p>

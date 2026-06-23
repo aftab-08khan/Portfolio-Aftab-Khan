@@ -20,16 +20,14 @@ function LinkIcon(props) {
 
 function ProjectSkeleton() {
   return (
-    <li className="animate-pulse">
-      <div className="h-12 w-12 rounded-full bg-zinc-200 dark:bg-zinc-700" />
-
-      <div className="mt-6 h-4 w-3/4 rounded bg-zinc-200 dark:bg-zinc-700" />
-      <div className="mt-6 h-4 w-3/4 rounded bg-zinc-200 dark:bg-zinc-700" />
-
-      <div className="mt-4 h-3 w-full rounded bg-zinc-200 dark:bg-zinc-700" />
-      <div className="mt-2 h-3 w-5/6 rounded bg-zinc-200 dark:bg-zinc-700" />
-
-      <div className="mt-6 h-4 w-24 rounded bg-zinc-200 dark:bg-zinc-700" />
+    <li className="animate-pulse rounded-2xl border border-zinc-100 p-6 dark:border-zinc-800/50 bg-zinc-50/30 dark:bg-zinc-900/20">
+      <div className="h-10 w-10 rounded-xl bg-zinc-200 dark:bg-zinc-800" />
+      <div className="mt-4 h-4 w-2/3 rounded bg-zinc-200 dark:bg-zinc-800" />
+      <div className="mt-3 space-y-2">
+        <div className="h-3 w-full rounded bg-zinc-200 dark:bg-zinc-800" />
+        <div className="h-3 w-4/5 rounded bg-zinc-200 dark:bg-zinc-800" />
+      </div>
+      <div className="mt-6 h-3 w-20 rounded bg-zinc-200 dark:bg-zinc-800" />
     </li>
   )
 }
@@ -64,7 +62,9 @@ export default function Projects() {
     >
       <ul
         role="list"
-        className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
+        className={`grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-1000 ease-in-out ${
+          loading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+        }`}
       >
         {/* 🔹 Skeletons while loading */}
         {loading &&
@@ -73,30 +73,47 @@ export default function Projects() {
         {/* 🔹 Actual Projects */}
         {!loading &&
           projects.map((project) => (
-            <Card as="li" key={project.name}>
-              <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white ring-1 shadow-md shadow-zinc-800/5 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-                <Image
-                  src={ProjectIcon}
-                  alt={project.name}
-                  width={32}
-                  height={32}
-                  className="h-8 w-8"
-                  unoptimized
-                />
+            <Card 
+              as="li" 
+              key={project.name} 
+              className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-zinc-100 bg-white p-6 shadow-sm transition-all duration-300 dark:border-zinc-800/60 dark:bg-zinc-900/40 backdrop-blur-sm hover:border-zinc-300 dark:hover:border-zinc-700/80 hover:shadow-md dark:hover:bg-zinc-900/60"
+            >
+              {/* Top ambient radial glow inside card on hover */}
+              <div className="absolute top-0 right-0 -z-10 h-24 w-24 rounded-full bg-teal-500/0 blur-2xl transition-all duration-500 group-hover:bg-teal-500/10 dark:group-hover:bg-teal-400/5" />
+
+              <div>
+                {/* Modern Squared-Circle Icon Wrapper */}
+                <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-50 border border-zinc-100 shadow-sm transition-colors duration-300 group-hover:border-teal-500/20 group-hover:bg-teal-500/5 dark:border-zinc-800 dark:bg-zinc-800/50 dark:group-hover:border-teal-400/30 dark:group-hover:bg-teal-400/10">
+                  <Image
+                    src={ProjectIcon}
+                    alt={project.name}
+                    width={24}
+                    height={24}
+                    className="h-6 w-6 object-contain opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+                    unoptimized
+                  />
+                </div>
+
+                {/* Typography adjustments */}
+                <h2 className="mt-4 text-base font-medium tracking-tight text-zinc-800 dark:text-zinc-100">
+                  <Card.Link href={project.link.href} target="_blank">
+                    <span className="absolute -inset-x-0 -inset-y-0 z-20 rounded-2xl" />
+                    <span className="relative z-10 transition-colors duration-300 group-hover:text-teal-600 dark:group-hover:text-teal-400">
+                      {project.name}
+                    </span>
+                  </Card.Link>
+                </h2>
+
+                <div className="mt-2 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 font-light">
+                  <Card.Description>{project.description}</Card.Description>
+                </div>
               </div>
 
-              <h2 className="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100">
-                <Card.Link href={project.link.href} target="_blank">
-                  {project.name}
-                </Card.Link>
-              </h2>
-
-              <Card.Description>{project.description}</Card.Description>
-
-              <p className="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200">
-                <LinkIcon className="h-6 w-6 flex-none" />
-                <span className="ml-2 capitalize">{project.link.label}</span>
-              </p>
+              {/* Minimalist modern action badge */}
+              <div className="relative z-10 mt-6 flex items-center text-xs font-medium text-zinc-400 transition-colors duration-300 group-hover:text-zinc-700 dark:text-zinc-500 dark:group-hover:text-zinc-300">
+                <span className="capitalize tracking-wider">{project.link.label || 'view project'}</span>
+                <LinkIcon className="ml-1.5 h-3.5 w-3.5 flex-none transition-all duration-300 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 opacity-60 group-hover:opacity-100" />
+              </div>
             </Card>
           ))}
       </ul>

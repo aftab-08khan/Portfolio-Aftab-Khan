@@ -10,6 +10,7 @@ import {
   LinkedInIcon,
 } from '@/components/SocialIcons'
 import portraitImage from '@/images/portrait.jpg'
+import Heading from '@/components/Heading'
 
 function SocialLink({ className, href, children, icon: Icon }) {
   return (
@@ -42,9 +43,7 @@ export default function About() {
       <Container className="mt-16 sm:mt-32 relative z-10">
         <div className="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
           
-          {/* Portrait Image Column */}
           <div className="lg:pl-20">
-            {/* Automatic smooth floating bounce effect using arbitrary custom Tailwind classes */}
             <div className="max-w-xs px-2.5 lg:max-w-none [animation:float_5s_ease-in-out_infinite] @keyframes_float_{0%,100%{transform:translateY(0px)}_50%{transform:translateY(-10px)}}">
               <Image
                 src={portraitImage}
@@ -55,14 +54,11 @@ export default function About() {
             </div>
           </div>
 
-          {/* Biography Content Column */}
           <div className="lg:order-first lg:row-span-2">
-            {/* Sleek multi-stop color gradient text that smoothly transitions automatically. 
-              In dark mode, it gracefully cycles highlighting nuances through white, emerald/teal tones, and sleek silver.
-            */}
-            <h1 className="text-3xl font-extrabold tracking-tight sm:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-zinc-800 via-zinc-600 to-zinc-900 dark:from-white dark:via-teal-200 dark:to-slate-400 bg-[size:200%_auto] animate-[pulse_6s_linear_infinite] hover:animate-[shine_2s_linear_infinite] @keyframes_shine_{to{background-position:200%_center}}">
+           
+            <Heading >
               I’m Aftab Khan — a frontend engineer building modern, scalable web experiences.
-            </h1>
+            </Heading>
 
             <div className="mt-6 space-y-7 text-base text-zinc-600 dark:text-zinc-400/90 leading-relaxed">
               <p>
