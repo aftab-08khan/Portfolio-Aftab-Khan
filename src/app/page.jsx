@@ -163,9 +163,9 @@ function Role({ role }) {
       </div>
       <dl className="flex flex-auto flex-wrap gap-x-2">
         <dt className="sr-only">Company</dt>
-        <dd className="w-full flex-none text-sm font-medium text-zinc-900 dark:text-zinc-100">
+        <a href={role.link}target='/' className="w-full flex-none text-sm font-medium text-zinc-900 dark:text-zinc-100">
           {role.company}
-        </dd>
+        </a>
         <dt className="sr-only">Role</dt>
         <dd className="text-xs text-zinc-500 dark:text-zinc-400">
           {role.title}
@@ -186,15 +186,24 @@ function Role({ role }) {
 
 function Resume() {
   let resume = [
-    {
-      company: 'MAK Byte',
-      title: 'Fronted Enginner',
+      {
+      company: 'Stroomx LLC',
+      link:'https://stroomx.com/',
+      title: 'Full Stack Enginner',
       logo: logoPlanetaria,
-      start: '2023',
+      start: '2026',
       end: {
         label: 'Present',
         dateTime: new Date().getFullYear().toString(),
       },
+    },
+    {
+      company: 'MAK Byte',
+      link:'https://www.makbyte.co.in/',
+      title: 'Fronted Enginner',
+      logo: logoPlanetaria,
+      start: '2023',
+      end: '2026'
     },
   ]
 
