@@ -113,7 +113,6 @@ export default function SpaceBackground() {
 
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      // Stars
       stars.forEach((star) => {
         star.alpha += star.speed
         if (star.alpha > 1 || star.alpha < 0) star.speed = -star.speed
@@ -123,7 +122,6 @@ export default function SpaceBackground() {
         ctx.fill()
       })
 
-      // Cosmic Dust Embers
       cosmicParticles.forEach((p) => {
         p.y += p.speedY
         p.x += p.speedX
@@ -136,7 +134,6 @@ export default function SpaceBackground() {
         ctx.fill()
       })
 
-      // Shooting Star Streaks
       for (let i = shootingStars.length - 1; i >= 0; i--) {
         const ss = shootingStars[i]
         const cosAngle = Math.cos(ss.angle)

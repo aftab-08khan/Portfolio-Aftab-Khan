@@ -113,19 +113,16 @@ export default function Uses() {
                             </h3>
                           </div>
 
-                          {/* Monospaced System Spec Code Tag */}
                           <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-600 bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-100 dark:border-zinc-800/40 px-2 py-0.5 rounded-md tracking-wider">
                             {tool.code}
                           </span>
                         </div>
 
-                        {/* Detailed Description */}
                         <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400 font-light">
                           {tool.desc}
                         </p>
                       </div>
 
-                      {/* Lower Operational Signal Tag */}
                       <div className="mt-4 pt-3 border-t border-zinc-100 dark:border-zinc-800/30 flex items-center justify-between text-[9px] font-mono tracking-widest text-zinc-400 dark:text-zinc-600 uppercase">
                         <span>SYS_LOG_ACTIVE</span>
                         <span className="text-teal-500/70 dark:text-teal-400/50 font-bold animate-pulse">[ ONLINE ]</span>

@@ -63,49 +63,48 @@ export default function Projects() {
     >
       <ul
         role="list"
-        className={`grid grid-cols-1 gap-6 relative z-20 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-1000 ease-in-out ${
-          loading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
-        }`}
+        className={`grid grid-cols-1 gap-6 relative z-20 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-1000 ease-in-out ${loading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+          }`}
       >
         {loading &&
           Array.from({ length: 6 }).map((_, i) => <ProjectSkeleton key={i} />)}
-{!loading &&
-  projects.map((project) => (
-    <Card 
-      as="li" 
-      key={project.name} 
-      className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-zinc-100 bg-white p-6 shadow-sm backdrop-blur-sm transition-all duration-300 ease-out dark:border-zinc-800/60 dark:bg-zinc-900/40 hover:-translate-y-1 hover:border-zinc-300 dark:hover:border-zinc-700/80 hover:shadow-xl dark:hover:shadow-black/40 hover:bg-zinc-50/10 dark:hover:bg-zinc-900/60"
-    >
-      <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-teal-500 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-in-out" />
+        {!loading &&
+          projects.map((project) => (
+            <Card
+              as="li"
+              key={project.name}
+              className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-zinc-100 bg-white p-6 shadow-sm backdrop-blur-sm transition-all duration-300 ease-out dark:border-zinc-800/60 dark:bg-zinc-900/40 hover:-translate-y-1 hover:border-zinc-300 dark:hover:border-zinc-700/80 hover:shadow-xl dark:hover:shadow-black/40 hover:bg-zinc-50/10 dark:hover:bg-zinc-900/60"
+            >
+              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-teal-500 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-in-out" />
 
-      <div className="absolute top-0 right-0 h-28 w-28 rounded-full bg-teal-500/0 blur-2xl transition-all duration-500 pointer-events-none group-hover:bg-teal-500/10 dark:group-hover:bg-teal-400/5" />
+              <div className="absolute top-0 right-0 h-28 w-28 rounded-full bg-teal-500/0 blur-2xl transition-all duration-500 pointer-events-none group-hover:bg-teal-500/10 dark:group-hover:bg-teal-400/5" />
 
-      <div>
-        <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-50 border border-zinc-100 shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:rotate-2 group-hover:border-teal-500/30 group-hover:bg-teal-500/5 dark:border-zinc-800 dark:bg-zinc-800/50 dark:group-hover:border-teal-400/40 dark:group-hover:bg-teal-400/10">
-        
-          <FaLaptopCode className="h-6 w-6 group-hover:text-teal-600 dark:group-hover:text-teal-400 object-contain opacity-75 transition-opacity duration-300 group-hover:opacity-100"/>
-        </div>
+              <div>
+                <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-50 border border-zinc-100 shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:rotate-2 group-hover:border-teal-500/30 group-hover:bg-teal-500/5 dark:border-zinc-800 dark:bg-zinc-800/50 dark:group-hover:border-teal-400/40 dark:group-hover:bg-teal-400/10">
 
-        <h2 className="mt-4 text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
-          <Card.Link href={project.link.href} target="_blank">
-            <span className="absolute -inset-x-0 -inset-y-0 z-20 rounded-2xl" />
-            <span className="relative z-10 transition-colors duration-300 group-hover:text-teal-600 dark:group-hover:text-teal-400">
-              {project.name}
-            </span>
-          </Card.Link>
-        </h2> 
+                  <FaLaptopCode className="h-6 w-6 group-hover:text-teal-600 dark:group-hover:text-teal-400 object-contain opacity-75 transition-opacity duration-300 group-hover:opacity-100" />
+                </div>
 
-        <div className="mt-2 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 font-light line-clamp-3">
-          <Card.Description>{project.description}</Card.Description>
-        </div>
-      </div>
+                <h2 className="mt-4 text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
+                  <Card.Link href={project.link.href} target="_blank">
+                    <span className="absolute -inset-x-0 -inset-y-0 z-20 rounded-2xl" />
+                    <span className="relative z-10 transition-colors duration-300 group-hover:text-teal-600 dark:group-hover:text-teal-400">
+                      {project.name}
+                    </span>
+                  </Card.Link>
+                </h2>
 
-      <div className="relative z-10 mt-6 flex items-center text-xs font-mono uppercase tracking-widest text-zinc-400 transition-colors duration-300 group-hover:text-teal-500 dark:text-zinc-500 dark:group-hover:text-teal-400">
-        <span>{project.link.label || 'view project'}</span>
-        <LinkIcon className="ml-2 h-3 w-3 flex-none transition-all duration-300 transform group-hover:translate-x-1 group-hover:-translate-y-0.5 opacity-60 group-hover:opacity-100" />
-      </div>
-    </Card>
-  ))}
+                <div className="mt-2 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 font-light line-clamp-3">
+                  <Card.Description>{project.description}</Card.Description>
+                </div>
+              </div>
+
+              <div className="relative z-10 mt-6 flex items-center text-xs font-mono uppercase tracking-widest text-zinc-400 transition-colors duration-300 group-hover:text-teal-500 dark:text-zinc-500 dark:group-hover:text-teal-400">
+                <span>{project.link.label || 'view project'}</span>
+                <LinkIcon className="ml-2 h-3 w-3 flex-none transition-all duration-300 transform group-hover:translate-x-1 group-hover:-translate-y-0.5 opacity-60 group-hover:opacity-100" />
+              </div>
+            </Card>
+          ))}
       </ul>
     </SimpleLayout>
   )

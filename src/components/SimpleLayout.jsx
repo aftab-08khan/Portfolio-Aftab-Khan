@@ -5,10 +5,10 @@ export function SimpleLayout({ title, intro, children }) {
   return (
     <Container className="mt-16 sm:mt-32">
       <header className="max-w-2xl">
- <Heading>
+        <Heading>
 
           {title}
-  </Heading>
+        </Heading>
         <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
           {intro}
         </p>
